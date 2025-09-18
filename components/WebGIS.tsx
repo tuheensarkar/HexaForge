@@ -36,23 +36,8 @@ import {
   Activity
 } from "lucide-react"
 
-// Dynamic import for the InteractiveMap to avoid SSR issues with Leaflet
-const InteractiveMap = dynamic(
-  () => import('./InteractiveMap').then(mod => ({ default: mod.InteractiveMap })),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-full bg-gradient-to-br from-blue-100 via-green-50 to-blue-100 rounded-lg flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-            <Map className="w-6 h-6 text-white" />
-          </div>
-          <p className="text-sm text-gray-600">Loading Interactive Map...</p>
-        </div>
-      </div>
-    )
-  }
-)
+// Import the client-side map component
+import MapClient from './MapClient'
 
 export function WebGIS() {
   const {
@@ -498,17 +483,17 @@ export function WebGIS() {
         {/* Main Map Area */}
         <div className="flex-1 min-w-0">
           <div className="relative h-[calc(100vh-200px)] bg-gray-100">
-            <InteractiveMap
+            <MapClient
               center={mapState.center}
               zoom={mapState.zoom}
               layers={layers}
               geoFeatures={geoFeatures}
               selectedVillage={selectedVillage}
               onFeatureClick={onFeatureClick}
-              onMapClick={(latlng) => {
+              onMapClick={(latlng: { lat: number; lng: number }) => {
                 console.log('Map clicked at:', latlng.lat, latlng.lng)
               }}
-              onDistrictClick={(district) => {
+              onDistrictClick={(district: string) => {
                 console.log('District clicked:', district)
               }}
               onBoundsChange={updateMapBounds}
