@@ -1,3 +1,5 @@
+"use client"
+
 import { EnhancedMap } from '@/components/EnhancedMap'
 
 export default function MapDemo() {

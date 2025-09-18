@@ -6,6 +6,10 @@ import L from 'leaflet'
 import html2canvas from 'html2canvas'
 import { Download, MapPin, Eye, EyeOff, X } from 'lucide-react'
 
+// Ensure this component is marked as a Client Component
+// The "use client" directive at the top of this file ensures that
+// all components in this file will be treated as Client Components
+
 // TypeScript interfaces
 interface StateProperties {
   name: string
