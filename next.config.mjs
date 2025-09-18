@@ -8,7 +8,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    domains: ['vercel.app'],
   },
+  output: 'standalone',
+  poweredByHeader: false,
+  reactStrictMode: true,
+  swcMinify: true,
+  trailingSlash: true,
 }
 
 export default nextConfig
