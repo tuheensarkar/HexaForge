@@ -550,15 +550,20 @@ export function InteractiveMap({
         )}
 
         {/* Enhanced India State Boundaries Layer */}
-        <StateLayer 
+        <EnhancedGeoJSONLayer
           key="state-layer"
-          onStateClick={useCallback((state: StateProperties) => {
-            console.log('State clicked:', state);
-            onDistrictClick?.(state.name);
+          layerId="state_boundaries"
+          features={geoFeatures['state_boundaries'] || []}
+          color="#333333"
+          visible={true}
+          opacity={70}
+          currentZoom={zoom}
+          onFeatureClick={useCallback((feature: GeoFeature) => {
+            console.log('State clicked:', feature.properties?.name);
+            if (feature.properties?.name) {
+              onDistrictClick?.(feature.properties.name);
+            }
           }, [onDistrictClick])}
-          onStateHover={useCallback((state: StateProperties | null) => {
-            console.log('State hovered:', state);
-          }, [])}
         />
 
         {/* Marker Clustering for settlements */}
@@ -596,7 +601,7 @@ export function InteractiveMap({
                           onFeatureClick(feature)
                         }
                         // Auto-open analytics if clicking on settlement
-                        if (feature.properties.village) {
+                        if (feature.properties?.village) {
                           handleDistrictClick(feature.properties.village)
                         }
                       }
@@ -609,7 +614,7 @@ export function InteractiveMap({
                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: layer.color }}></div>
                             {feature.properties.name || `${layer.id} Feature`}
                           </h3>
-                          {feature.properties.village && (
+                          {feature.properties?.village && (
                             <p className="text-sm text-gray-600 mt-1">{feature.properties.village}</p>
                           )}
                         </div>
@@ -632,7 +637,7 @@ export function InteractiveMap({
                         
                         <div className="mt-3 pt-3 border-t border-gray-200">
                           <button
-                            onClick={() => handleDistrictClick(feature.properties.village || 'Unknown')}
+                            onClick={() => handleDistrictClick(feature.properties?.village || 'Unknown')}
                             className="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
                           >
                             View District Analytics

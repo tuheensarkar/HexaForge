@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://hexa-forge.vercel.app
+
+# Sitemaps
+Sitemap: https://hexa-forge.vercel.app/sitemap.xml

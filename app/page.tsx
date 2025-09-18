@@ -180,7 +180,11 @@ export default function FRAAtlasDashboard() {
       {/* Scroll to Top Button */}
       {mounted && (
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+          }}
           className="fixed bottom-8 right-8 w-12 h-12 bg-[var(--gov-blue)] text-white rounded-full shadow-lg hover:shadow-xl focus:ring-4 focus:ring-blue-300 focus:outline-none transition-all duration-200 flex items-center justify-center z-40"
           aria-label="Scroll to top"
           title="Scroll to top (Keyboard accessible)"

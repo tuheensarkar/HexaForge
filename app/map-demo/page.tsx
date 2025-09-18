@@ -1,6 +1,22 @@
 "use client"
 
-import { EnhancedMap } from '@/components/EnhancedMap'
+import dynamic from 'next/dynamic';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+
+// Dynamically import the EnhancedMap component with SSR disabled
+const EnhancedMap = dynamic(
+  () => import('@/components/EnhancedMap').then(mod => ({
+    default: mod.EnhancedMap,
+  })),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    )
+  }
+);
 
 export default function MapDemo() {
   const handleDistrictClick = (data: any) => {

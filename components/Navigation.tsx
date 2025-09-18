@@ -100,9 +100,11 @@ export function Navigation({ activeSection, onNavigate, className }: NavigationP
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      setIsScrolled(scrollY > 10)
-      setIsCompact(scrollY > 100)
+      if (typeof window !== 'undefined') {
+        const scrollY = window.scrollY
+        setIsScrolled(scrollY > 10)
+        setIsCompact(scrollY > 100)
+      }
     }
 
     const handleKeyboard = (e: KeyboardEvent) => {
@@ -124,11 +126,15 @@ export function Navigation({ activeSection, onNavigate, className }: NavigationP
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
+    if (typeof window !== 'undefined') {
+      window.addEventListener("scroll", handleScroll)
+    }
     document.addEventListener("keydown", handleKeyboard)
     
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      if (typeof window !== 'undefined') {
+        window.removeEventListener("scroll", handleScroll)
+      }
       document.removeEventListener("keydown", handleKeyboard)
     }
   }, [onNavigate])
@@ -398,7 +404,11 @@ export function Navigation({ activeSection, onNavigate, className }: NavigationP
       {/* Scroll to Top Button */}
       {isScrolled && (
         <Button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+          }}
           className="fixed bottom-6 right-6 z-30 w-12 h-12 rounded-full shadow-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-110"
           title="Scroll to top"
         >
