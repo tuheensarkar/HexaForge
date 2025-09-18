@@ -16,9 +16,13 @@ declare global {
   }
 }
 
-// Initialize L on window for plugins
-if (typeof window !== 'undefined') {
-  window.L = L;
+// Initialize L on window for plugins (safely handle SSR)
+if (typeof window !== 'undefined' && typeof window !== undefined) {
+  try {
+    (window as any).L = L;
+  } catch (e) {
+    console.warn('Could not initialize window.L:', e);
+  }
 }
 
 // Interfaces

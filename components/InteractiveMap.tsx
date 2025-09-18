@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import type { StateProperties } from './StateLayer';
 import { 
   MapContainer, 
   TileLayer, 
@@ -22,7 +21,6 @@ import { MapCompass } from './MapCompass';
 import { BasemapSelector, BasemapType } from './BasemapSelector';
 import { AnalyticsOverlay } from './AnalyticsOverlay';
 import { MapStyles } from './MapStyles';
-import { StateLayer } from './StateLayer';
 
 
 interface InteractiveMapProps {
