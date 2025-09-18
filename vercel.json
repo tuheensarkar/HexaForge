@@ -8,5 +8,7 @@
   ],
   "buildCommand": "npm install && npm run build",
   "installCommand": "npm install",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "regions": ["bom1"]
 }
